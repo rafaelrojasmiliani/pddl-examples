@@ -1,0 +1,15 @@
+(define (domain switch_domain)
+(:requirements :strips)
+(:predicates (switch_on) (switch_off))
+(:action turn_on 
+		:parameters ()
+    :precondition (switch_off)
+    :effect (and (switch_on) 
+            (not (switch_off)))
+)
+(:action turn_off
+		:parameters ()
+    :precondition (switch_on)
+    :effect (and (switch_off) (not (switch_on)))
+)
+)
