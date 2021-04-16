@@ -1,0 +1,31 @@
+from std_srvs.srv import Empty
+import rospy
+from std_msgs.msg import String
+
+
+def main():
+    rospy.init_node('load_solve_show', anonymous=True)
+    generate_problem = rospy.ServiceProxy(
+        'rosplan_problem_interface/problem_generation_server', Empty)
+
+    generate_problem.waitForExistence()
+
+    planning_server = rospy.ServiceProxy(
+        'rosplan_planner_interface/planning_server', Empty)
+
+    planning_server.waitForExistence()
+
+    generate_problem()
+
+    planning_server()
+
+    plan_string = rospy.wait_for_message(
+        'rosplan_planner_interface/planner_output', String)
+
+    print('------------------')
+    print(plan_string)
+    print('------------------')
+
+
+if __name__ == '__main__':
+    main()
