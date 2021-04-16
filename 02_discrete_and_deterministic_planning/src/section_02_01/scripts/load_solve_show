@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from std_srvs.srv import Empty
 import rospy
 from std_msgs.msg import String
@@ -5,18 +6,18 @@ from std_msgs.msg import String
 
 def main():
     rospy.init_node('load_solve_show', anonymous=True)
+    # instantiate server clients
     generate_problem = rospy.ServiceProxy(
         'rosplan_problem_interface/problem_generation_server', Empty)
-
-    generate_problem.waitForExistence()
-
     planning_server = rospy.ServiceProxy(
         'rosplan_planner_interface/planning_server', Empty)
+    # wait for services
+    rospy.wait_for_service(
+        'rosplan_problem_interface/problem_generation_server')
+    rospy.wait_for_service('rosplan_planner_interface/planning_server')
 
-    planning_server.waitForExistence()
-
+    # call services
     generate_problem()
-
     planning_server()
 
     plan_string = rospy.wait_for_message(

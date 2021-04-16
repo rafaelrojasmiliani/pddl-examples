@@ -30,6 +30,7 @@
       <arg name="domain_path" value="$(arg domain_path)"/>
       <arg name="problem_path" value="$(arg problem_output_file)"/>
       <arg name="planner_command" value="timeout 10 $(find rosplan_planning_system)/common/bin/popf DOMAIN PROBLEM"/>
+      <arg name="data_path" value="$(find section_02_01)/common/"/>
     </include>
     <node name="solver" pkg="section_02_01" type="load_solve_show" respawn="false" output="screen">
   </node>
