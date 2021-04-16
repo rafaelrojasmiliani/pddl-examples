@@ -2,7 +2,7 @@
 (:requirements :strips)
 (:predicates (switch_on) (switch_off))
 (:action turn_on 
-		:parameters ()
+	:parameters ()
     :precondition (switch_off)
     :effect (and (switch_on) 
             (not (switch_off)))
